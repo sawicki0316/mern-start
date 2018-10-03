@@ -1,4 +1,5 @@
-/*import mongoose from 'mongoose';
+/*
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
@@ -20,26 +21,25 @@ const Post = sequelize.define('post', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   title: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   content: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   slug: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   cuid: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   dateAdded: {
-    type: Sequelize.DATE
-  }
+    type: Sequelize.DATE,
+  },
 }, { tableName });
-
 module.exports = Post;

@@ -1,7 +1,7 @@
 const database = require('../database');
 
 const dbService = (migrate) => {
-  const authenticateDB = (migrate) => (
+  const authenticateDB = () => (
     database
       .authenticate()
   );
@@ -26,11 +26,11 @@ const dbService = (migrate) => {
     console.info('unable to connect to the database:', err)
   );
 
-  const wrongEnvironment = () => {
+/*  const wrongEnvironment = () => {
     console.warn(`only development, staging, test and production are valid NODE_ENV variables but ${environment} is specified`);
     return process.exit(1);
   };
-
+*/
   const startMigrateTrue = () => (
     syncDB()
       .then(() => successfulDBStart())
@@ -81,7 +81,7 @@ const dbService = (migrate) => {
   );
 
   const start = () => {
-    var environment = "";
+    const environment = '';
     switch (environment) {
       case 'development':
         return startDev();

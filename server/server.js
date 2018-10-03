@@ -1,6 +1,5 @@
 import Express from 'express';
 import compression from 'compression';
-import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
@@ -47,10 +46,10 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import posts from './routes/post.routes';
-import dummyData from './dummyData';
 import serverConfig from './config';
 
-/*// Set native promises as mongoose promise
+/*
+// Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
 
 // MongoDB Connection
@@ -66,7 +65,7 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }*/
 
-const DB = dbService(serverConfig.migrate).start();
+dbService(serverConfig.migrate).start();
 
 // Apply body Parser and server public assets and routes
 app.use(compression());

@@ -10,11 +10,17 @@ import sanitizeHtml from 'sanitize-html';
  * @returns void
  */
 export function getPosts(req, res) {
+  /*
   Post.find().sort('-dateAdded').exec((err, posts) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json({ posts });
+  });*/
+  Post.findAll().then(item => {
+    res.json({ item });
+  }).catch(err => {
+    res.status(500).send(err);
   });
 }
 
@@ -29,7 +35,7 @@ export function addPost(req, res) {
     res.status(403).end();
   }
 
-  const newPost = new Post(req.body.post);
+  const newPost = req.body.post;
 
   // Let's sanitize inputs
   newPost.title = sanitizeHtml(newPost.title);
@@ -38,11 +44,17 @@ export function addPost(req, res) {
 
   newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true });
   newPost.cuid = cuid();
+  /*
   newPost.save((err, saved) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json({ post: saved });
+  });*/
+  Post.create({ newPost }).then(() => {
+    res.json({ post: 'saved' });
+  }).catch(err => {
+    res.status(500).send(err);
   });
 }
 
@@ -53,11 +65,21 @@ export function addPost(req, res) {
  * @returns void
  */
 export function getPost(req, res) {
+  /*
   Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json({ post });
+  });*/
+  Post.findOne({
+    where: {
+      cuid: req.params.cuid,
+    },
+  }).then(item => {
+    res.json({ item });
+  }).catch(err => {
+    res.status(500).send(err);
   });
 }
 
@@ -68,6 +90,7 @@ export function getPost(req, res) {
  * @returns void
  */
 export function deletePost(req, res) {
+  /*
   Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
     if (err) {
       res.status(500).send(err);
@@ -76,5 +99,14 @@ export function deletePost(req, res) {
     post.remove(() => {
       res.status(200).end();
     });
+  });*/
+  Post.destroy({
+    where: {
+      cuid: req.params.cuid,
+    },
+  }).then(() => {
+    res.status(200).end();
+  }).catch(err => {
+    res.status(500).send(err);
   });
 }
