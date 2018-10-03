@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+/*import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
@@ -11,3 +11,35 @@ const postSchema = new Schema({
 });
 
 export default mongoose.model('Post', postSchema);
+*/
+const Sequelize = require('sequelize');
+const sequelize = require('../database');
+const tableName = 'post';
+
+const Post = sequelize.define('post', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  name: {
+    type: Sequelize.STRING
+  },
+  title: {
+    type: Sequelize.STRING
+  },
+  content: {
+    type: Sequelize.STRING
+  },
+  slug: {
+    type: Sequelize.STRING
+  },
+  cuid: {
+    type: Sequelize.STRING
+  },
+  dateAdded: {
+    type: Sequelize.DATE
+  }
+}, { tableName });
+
+module.exports = Post;
